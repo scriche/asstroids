@@ -33,7 +33,7 @@ script = ExtResource("4_cm0pq")
 Astroid = ExtResource("5_fos0i")
 
 [node name="Timer" type="Timer" parent="AstroidSpawner"]
-wait_time = 0.5
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="AstroidSpawner/Timer" to="AstroidSpawner" method="_on_timer_timeout"]
