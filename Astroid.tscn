@@ -1,18 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://diyrq5hcsvv1u"]
+[gd_scene load_steps=3 format=3 uid="uid://diyrq5hcsvv1u"]
 
 [ext_resource type="Script" uid="uid://cl0ijtqcwbhib" path="res://Astroid.gd" id="1_qjuck"]
 [ext_resource type="Texture2D" uid="uid://c48d1c5k7glpp" path="res://Astroid.png" id="2_1dbtd"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yqsyj"]
-
 [node name="Astroid" type="Area2D" groups=["Astroids"]]
 script = ExtResource("1_qjuck")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(5.5, 5.5)
-shape = SubResource("CircleShape2D_yqsyj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("2_1dbtd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-19, -58, -62, -9, -47, 50, 17, 62, 59, 23, 40, -61)

@@ -14,6 +14,10 @@ config/name="asstroids"
 run/main_scene="uid://cfhylnxjtpfd7"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
+[autoload]
+
+Global="*res://global.gd"
+
 [dotnet]
 
 project/assembly_name="asstroids"
