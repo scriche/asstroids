@@ -4,15 +4,14 @@ extends Node2D
 
 func _on_timer_timeout() -> void:
 	var a = Astroid.instantiate()
-	var viewportInfo : Rect2 = get_viewport().get_visible_rect()
 	var offset = 70
 	match randi_range(0,3): 
 		0:
-			a.position = Vector2(randf_range(viewportInfo.position.x,viewportInfo.end.x),viewportInfo.position.y-offset)
+			a.position = Vector2(randf_range(Global.viewpos.x,Global.viewend.x),Global.viewpos.y-offset)
 		1:
-			a.position = Vector2(randf_range(viewportInfo.position.x,viewportInfo.end.x),viewportInfo.end.y+offset)
+			a.position = Vector2(randf_range(Global.viewpos.x,Global.viewend.x),Global.viewend.y+offset)
 		2:
-			a.position = Vector2(viewportInfo.position.x-offset,randf_range(viewportInfo.position.y,viewportInfo.end.y))
+			a.position = Vector2(Global.viewpos.x-offset,randf_range(Global.viewpos.y,Global.viewend.y))
 		3:
-			a.position = Vector2(viewportInfo.end.x+offset,randf_range(viewportInfo.position.y,viewportInfo.end.y))
+			a.position = Vector2(Global.viewend.x+offset,randf_range(Global.viewpos.y,Global.viewend.y))
 	owner.add_child(a)

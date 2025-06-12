@@ -11,7 +11,7 @@ var viewportInfo : Rect2
 var velocity : Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-	
+
 	viewportInfo = get_viewport().get_visible_rect()
 
 	if Input.is_action_pressed("a"):
@@ -34,17 +34,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("shift"):
 		velocity *= 0.95
 
-	if position.x > viewportInfo.end.x:
-		position.x -= viewportInfo.size.x
+	if position.x > Global.viewend.x:
+		position.x -= viewportInfo.size.x / (1/Global.diff)
 		
-	if position.x < viewportInfo.position.x:
-		position.x += viewportInfo.size.x
-		
-	if position.y > viewportInfo.end.y:
-		position.y -= viewportInfo.size.y
-		
-	if position.y < viewportInfo.position.y:
-		position.y += viewportInfo.size.y
+	if position.x < Global.viewpos.x:
+		position.x += viewportInfo.size.x / (1/Global.diff)
+
+	if position.y > Global.viewend.y:
+		position.y -= viewportInfo.size.y / (1/Global.diff)
+
+	if position.y < Global.viewpos.y:
+		position.y += viewportInfo.size.y / (1/Global.diff)
 
 	velocity = velocity.clamp(-MAX_SPEED, MAX_SPEED)
 	position += velocity * delta * MOVEMENT_SPEED
@@ -52,4 +52,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_area_2d_area_entered(area:Area2D):
 	if area.is_in_group("Astroids"):
-		queue_free()
+		if Global.lives > 0:
+			Global.set_lives(Global.lives - 1)
+		else:
+			queue_free()

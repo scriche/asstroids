@@ -1,13 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cfhylnxjtpfd7"]
+[gd_scene load_steps=11 format=3 uid="uid://cfhylnxjtpfd7"]
 
 [ext_resource type="Script" uid="uid://dj0m6dves0jwx" path="res://Ship.gd" id="1_fos0i"]
 [ext_resource type="PackedScene" uid="uid://ddc5hiijtphag" path="res://Bullet.tscn" id="2_cm0pq"]
 [ext_resource type="Texture2D" uid="uid://t4iamqkulevg" path="res://Ship.png" id="3_fos0i"]
 [ext_resource type="Script" uid="uid://dygopyww0s5yc" path="res://AstroidSpawner.gd" id="4_cm0pq"]
 [ext_resource type="PackedScene" uid="uid://diyrq5hcsvv1u" path="res://Astroid.tscn" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://ujyxxutqjdue" path="res://Score.gd" id="6_3dxm6"]
-[ext_resource type="Script" uid="uid://bylpd4jxs4tvc" path="res://Camera.gd" id="7_lgr22"]
-[ext_resource type="Script" uid="uid://kv4mkax473co" path="res://Lives.gd" id="8_trn2v"]
+[ext_resource type="Script" uid="uid://ujyxxutqjdue" path="res://GUI.gd" id="6_3dxm6"]
+[ext_resource type="FontFile" uid="uid://c3ev5l0ayg3g8" path="res://PixelatedEleganceRegular-ovyAA.ttf" id="6_03owx"]
+[ext_resource type="Script" uid="uid://ddmvuffemsa1l" path="res://Camera.gd" id="7_lgr22"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(19.8504, 19.8505)
@@ -15,50 +15,63 @@ size = Vector2(19.8504, 19.8505)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fos0i"]
 size = Vector2(42, 42)
 
-[sub_resource type="SystemFont" id="SystemFont_fos0i"]
-font_names = PackedStringArray("Raster Forge")
-
 [node name="Main" type="Node2D"]
 
-[node name="Ship" type="RigidBody2D" parent="."]
+[node name="World" type="Node2D" parent="."]
+
+[node name="Ship" type="RigidBody2D" parent="World"]
 position = Vector2(399, 321)
 gravity_scale = 0.0
 script = ExtResource("1_fos0i")
 Bullet = ExtResource("2_cm0pq")
 
-[node name="Sprite2D" type="Sprite2D" parent="Ship"]
+[node name="Sprite2D" type="Sprite2D" parent="World/Ship"]
 texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("3_fos0i")
 
-[node name="Marker2D" type="Marker2D" parent="Ship"]
+[node name="Marker2D" type="Marker2D" parent="World/Ship"]
 position = Vector2(0, -28)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ship"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ship"]
 scale = Vector2(2.11582, 2.11582)
 shape = SubResource("RectangleShape2D_0hol4")
 
-[node name="Timer" type="Timer" parent="Ship"]
+[node name="Timer" type="Timer" parent="World/Ship"]
 wait_time = 0.5
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="Ship"]
+[node name="Area2D" type="Area2D" parent="World/Ship"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ship/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ship/Area2D"]
 shape = SubResource("RectangleShape2D_fos0i")
 
-[node name="AstroidSpawner" type="Node2D" parent="."]
+[node name="AstroidSpawner" type="Node2D" parent="World/Ship"]
+position = Vector2(-399, -321)
 script = ExtResource("4_cm0pq")
 Astroid = ExtResource("5_fos0i")
 
-[node name="Timer" type="Timer" parent="AstroidSpawner"]
+[node name="Timer" type="Timer" parent="World/Ship/AstroidSpawner"]
 wait_time = 2.0
 autostart = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Camera2D" type="Camera2D" parent="World"]
+position = Vector2(576, 324)
+script = ExtResource("7_lgr22")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_3dxm6")
+
+[node name="Score" type="RichTextLabel" parent="Control"]
+texture_filter = 1
+layout_mode = 0
 offset_right = 1003.0
 offset_bottom = 75.0
-theme_override_fonts/normal_font = SubResource("SystemFont_fos0i")
+theme_override_fonts/normal_font = ExtResource("6_03owx")
 theme_override_font_sizes/bold_italics_font_size = 20
 theme_override_font_sizes/italics_font_size = 20
 theme_override_font_sizes/mono_font_size = 20
@@ -66,14 +79,31 @@ theme_override_font_sizes/normal_font_size = 60
 theme_override_font_sizes/bold_font_size = 20
 bbcode_enabled = true
 text = "Score: 0"
-script = ExtResource("6_3dxm6")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 324)
-script = ExtResource("7_lgr22")
+[node name="Player Icon" type="TextureRect" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_top = 55.0
+offset_right = 40.0
+offset_bottom = 95.0
+scale = Vector2(1.31799, 1.31799)
+texture = ExtResource("3_fos0i")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-script = ExtResource("8_trn2v")
+[node name="Lives" type="RichTextLabel" parent="Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 62.0
+offset_top = 76.0
+offset_right = 185.0
+offset_bottom = 120.0
+theme_override_fonts/normal_font = ExtResource("6_03owx")
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "0"
 
-[connection signal="area_entered" from="Ship/Area2D" to="Ship" method="_on_area_2d_area_entered"]
-[connection signal="timeout" from="AstroidSpawner/Timer" to="AstroidSpawner" method="_on_timer_timeout"]
+[connection signal="area_entered" from="World/Ship/Area2D" to="World/Ship" method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="World/Ship/AstroidSpawner/Timer" to="World/Ship/AstroidSpawner" method="_on_timer_timeout"]
