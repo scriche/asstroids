@@ -12,5 +12,5 @@ func _on_area_entered(area:Area2D):
 	if area.is_in_group(("Astroids")):
 		Global.set_lives(Global.lives + 1)
 		Global.set_score(Global.score + 1)
-		area.break_apart()
+		area.call_deferred("break_apart")
 		queue_free()

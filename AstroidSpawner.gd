@@ -14,4 +14,4 @@ func _on_timer_timeout() -> void:
 			a.position = Vector2(Global.viewpos.x-offset,randf_range(Global.viewpos.y,Global.viewend.y))
 		3:
 			a.position = Vector2(Global.viewend.x+offset,randf_range(Global.viewpos.y,Global.viewend.y))
-	owner.add_child(a)
+	add_child(a)

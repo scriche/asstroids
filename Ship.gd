@@ -13,6 +13,7 @@ var velocity : Vector2 = Vector2.ZERO
 func _physics_process(delta: float) -> void:
 
 	viewportInfo = get_viewport().get_visible_rect()
+	Global.set_playerpos(position)
 
 	if Input.is_action_pressed("a"):
 		rotate(-PI/50*delta*ROTATION_SPEED)

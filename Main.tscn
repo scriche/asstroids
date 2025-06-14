@@ -46,18 +46,17 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ship/Area2D"]
 shape = SubResource("RectangleShape2D_fos0i")
 
-[node name="AstroidSpawner" type="Node2D" parent="World/Ship"]
-position = Vector2(-399, -321)
-script = ExtResource("4_cm0pq")
-Astroid = ExtResource("5_fos0i")
-
-[node name="Timer" type="Timer" parent="World/Ship/AstroidSpawner"]
-wait_time = 2.0
-autostart = true
-
 [node name="Camera2D" type="Camera2D" parent="World"]
 position = Vector2(576, 324)
 script = ExtResource("7_lgr22")
+
+[node name="AstroidSpawner" type="Node2D" parent="World"]
+script = ExtResource("4_cm0pq")
+Astroid = ExtResource("5_fos0i")
+
+[node name="Timer" type="Timer" parent="World/AstroidSpawner"]
+wait_time = 2.0
+autostart = true
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -106,4 +105,4 @@ bbcode_enabled = true
 text = "0"
 
 [connection signal="area_entered" from="World/Ship/Area2D" to="World/Ship" method="_on_area_2d_area_entered"]
-[connection signal="timeout" from="World/Ship/AstroidSpawner/Timer" to="World/Ship/AstroidSpawner" method="_on_timer_timeout"]
+[connection signal="timeout" from="World/AstroidSpawner/Timer" to="World/AstroidSpawner" method="_on_timer_timeout"]

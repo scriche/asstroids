@@ -5,6 +5,7 @@ var diff : float = 1.0
 var lives : int = 1
 var viewpos : Vector2
 var viewend : Vector2
+var playerpos : Vector2
 
 
 func _process(_delta):
@@ -17,3 +18,6 @@ func set_score(new_score: int) -> void:
 	
 func set_lives(new_lives: int) -> void:
     lives = new_lives
+
+func set_playerpos(new_playerpos: Vector2) -> void:
+    playerpos = new_playerpos
