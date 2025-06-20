@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://diyrq5hcsvv1u"]
+[gd_scene load_steps=4 format=3 uid="uid://diyrq5hcsvv1u"]
 
 [ext_resource type="Script" uid="uid://cl0ijtqcwbhib" path="res://Astroid.gd" id="1_qjuck"]
 [ext_resource type="Texture2D" uid="uid://c48d1c5k7glpp" path="res://Astroid.png" id="2_1dbtd"]
+[ext_resource type="PackedScene" uid="uid://d4jluid2pp5qw" path="res://Coin.tscn" id="2_yqsyj"]
 
 [node name="Astroid" type="Area2D" groups=["Astroids"]]
 script = ExtResource("1_qjuck")
+Coin = ExtResource("2_yqsyj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

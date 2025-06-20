@@ -1,13 +1,13 @@
 extends Control
 
-var score
+var scrap
 var lives
 
 func _ready():
-	score = $Score
+	scrap = $Scrap
 	lives = $Lives
 
 func _process(_delta):
-	score.text = "Score: " + str(Global.score)
+	scrap.text = "Scrap: " + str(Global.scrap)
 	lives.text = "" + str(Global.lives)
 	position = Global.viewpos
