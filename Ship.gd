@@ -37,16 +37,16 @@ func _physics_process(delta: float) -> void:
 		velocity *= 0.95
 
 	if position.x > Global.viewend.x:
-		position.x -= viewportInfo.size.x / (1/Global.diff)
+		position.x -= viewportInfo.size.x
 		
 	if position.x < Global.viewpos.x:
-		position.x += viewportInfo.size.x / (1/Global.diff)
+		position.x += viewportInfo.size.x
 
 	if position.y > Global.viewend.y:
-		position.y -= viewportInfo.size.y / (1/Global.diff)
+		position.y -= viewportInfo.size.y
 
 	if position.y < Global.viewpos.y:
-		position.y += viewportInfo.size.y / (1/Global.diff)
+		position.y += viewportInfo.size.y
 
 	var _maxspd = Vector2(Stats.getstat("max_speed"), Stats.getstat("max_speed"))
 	velocity = velocity.clamp(-_maxspd, _maxspd)

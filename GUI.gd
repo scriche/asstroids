@@ -10,4 +10,3 @@ func _ready():
 func _process(_delta):
 	scrap.text = "Scrap: " + str(Global.scrap)
 	lives.text = "" + str(Global.lives)
-	position = Global.viewpos

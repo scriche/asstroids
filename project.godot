@@ -19,6 +19,12 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 Global="*res://global.gd"
 Stats="*res://stats.gd"
 
+[display]
+
+window/size/viewport_width=2560
+window/size/viewport_height=1440
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="asstroids"
@@ -53,4 +59,4 @@ shift={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.233925, 0.233925, 0.233925, 1)

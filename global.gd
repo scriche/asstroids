@@ -9,6 +9,6 @@ var playerpos : Vector2 = Vector2.ZERO
 
 
 func _process(_delta):
-    diff = 1 + Time.get_ticks_msec()/1000.0/300.0
-    viewpos = get_viewport().get_visible_rect().get_center() - get_viewport().get_visible_rect().size * 0.5 / (1/diff)
-    viewend = get_viewport().get_visible_rect().get_center() + get_viewport().get_visible_rect().size * 0.5 / (1/diff)
+	diff = 1 + Time.get_ticks_msec()/1000.0/300.0
+	viewpos = get_viewport().get_visible_rect().position
+	viewend = get_viewport().get_visible_rect().end

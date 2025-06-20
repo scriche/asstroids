@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfhylnxjtpfd7"]
+[gd_scene load_steps=12 format=3 uid="uid://cfhylnxjtpfd7"]
 
 [ext_resource type="Script" uid="uid://dj0m6dves0jwx" path="res://Ship.gd" id="1_fos0i"]
 [ext_resource type="PackedScene" uid="uid://ddc5hiijtphag" path="res://Bullet.tscn" id="2_cm0pq"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://diyrq5hcsvv1u" path="res://Astroid.tscn" id="5_fos0i"]
 [ext_resource type="Script" uid="uid://ujyxxutqjdue" path="res://GUI.gd" id="6_3dxm6"]
 [ext_resource type="FontFile" uid="uid://c3ev5l0ayg3g8" path="res://PixelatedEleganceRegular-ovyAA.ttf" id="6_03owx"]
-[ext_resource type="Script" uid="uid://ddmvuffemsa1l" path="res://Camera.gd" id="7_lgr22"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wkp8b"]
 radius = 25.0799
@@ -59,8 +58,7 @@ texture_under = ExtResource("4_wkp8b")
 texture_progress = ExtResource("4_03owx")
 
 [node name="Camera2D" type="Camera2D" parent="World"]
-position = Vector2(576, 324)
-script = ExtResource("7_lgr22")
+position = Vector2(1280, 720)
 
 [node name="AstroidSpawner" type="Node2D" parent="World"]
 scale = Vector2(1.00222, 1)
@@ -77,6 +75,7 @@ anchors_preset = 0
 offset_top = 2.0
 offset_right = 40.0
 offset_bottom = 42.0
+scale = Vector2(1.23363, 1.23363)
 script = ExtResource("6_3dxm6")
 
 [node name="Scrap" type="RichTextLabel" parent="Control"]
