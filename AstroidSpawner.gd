@@ -2,6 +2,7 @@ extends Node2D
 
 @export var Astroid : PackedScene
 var spawnspeed = 1
+var scalemulti = 1.0
 
 func _on_timer_timeout() -> void:
 	var a = Astroid.instantiate()
@@ -15,7 +16,8 @@ func _on_timer_timeout() -> void:
 			a.position = Vector2(Global.viewpos.x-offset,randf_range(Global.viewpos.y,Global.viewend.y))
 		3:
 			a.position = Vector2(Global.viewend.x+offset,randf_range(Global.viewpos.y,Global.viewend.y))
+	a.scale = Vector2(scalemulti,scalemulti)
 	add_child(a)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$Timer.wait_time = 2/Global.diff * spawnspeed

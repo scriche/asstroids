@@ -1,0 +1,71 @@
+{
+  "positive": [
+    {
+      "name": "bonus_loot_chance",
+      "value": 2,
+      "rarity": 2
+    },
+    {
+      "name": "magnetic_loot_boost",
+      "value": 1,
+      "rarity": 5
+    },
+    {
+      "name": "gold_astroid",
+      "value": 3,
+      "rarity": 3
+    },
+    {
+      "name": "shop_discount",
+      "value": 6,
+      "rarity": 1
+    },
+    {
+      "name": "extra_shop_mod",
+      "value": 3,
+      "rarity": 3
+    },
+    {
+      "name": "free_shop_refresh",
+      "value": 4,
+      "rarity": 5
+    },
+    {
+      "name": "boost_random_stat",
+      "value": 1,
+      "rarity": 4
+    },
+    {
+      "name": "extra_life",
+      "value": 4,
+      "rarity": 3
+    },
+    {
+      "name": "slower_enemys",
+      "value": 7,
+      "rarity": 3
+    },
+    {
+      "name": "cargo_ship",
+      "value": 2,
+      "rarity": 4
+    },
+    {
+      "name": "pirate_ship",
+      "value": 2,
+      "rarity": 4
+    },
+    {
+      "name": "junker_ship",
+      "value": 2,
+      "rarity": 4
+    }
+  ],
+  "negative": [
+    {
+      "name": "enemy_damage",
+      "value": -1,
+      "rarity": 3
+    }
+  ]
+}

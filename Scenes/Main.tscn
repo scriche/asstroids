@@ -1,0 +1,271 @@
+[gd_scene load_steps=18 format=3 uid="uid://cfhylnxjtpfd7"]
+
+[ext_resource type="Script" uid="uid://dj0m6dves0jwx" path="res://Ship.gd" id="1_fos0i"]
+[ext_resource type="Texture2D" uid="uid://bvl0l1d10j7nq" path="res://Sprites/Background.png" id="1_wkp8b"]
+[ext_resource type="Script" uid="uid://cjhdk8jvejabh" path="res://Background.gd" id="2_20pc6"]
+[ext_resource type="PackedScene" uid="uid://ddc5hiijtphag" path="res://Scenes/Bullet.tscn" id="2_cm0pq"]
+[ext_resource type="Texture2D" uid="uid://t4iamqkulevg" path="res://Sprites/Ship.png" id="3_fos0i"]
+[ext_resource type="Texture2D" uid="uid://dmvtd3jd430r0" path="res://Sprites/HealthBar.png" id="4_03owx"]
+[ext_resource type="Script" uid="uid://dygopyww0s5yc" path="res://AstroidSpawner.gd" id="4_cm0pq"]
+[ext_resource type="Texture2D" uid="uid://b25bflg026qx" path="res://Sprites/HealthBarRed.png" id="4_wkp8b"]
+[ext_resource type="PackedScene" uid="uid://diyrq5hcsvv1u" path="res://Scenes/Astroid.tscn" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://ujyxxutqjdue" path="res://GUI.gd" id="6_3dxm6"]
+[ext_resource type="FontFile" uid="uid://c3ev5l0ayg3g8" path="res://Font/PixelatedEleganceRegular-ovyAA.ttf" id="6_03owx"]
+[ext_resource type="Script" uid="uid://dgpht0hwh7c0v" path="res://LevelManager.gd" id="8_c6i3y"]
+[ext_resource type="Script" uid="uid://bun4egitv7e3x" path="res://PlanetGenerator.gd" id="11_c2ibq"]
+[ext_resource type="Texture2D" uid="uid://dr2o1p734151d" path="res://Sprites/Coin.png" id="12_5vvyt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wkp8b"]
+radius = 25.0799
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20pc6"]
+radius = 25.02
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p5hy"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 120
+border_width_right = 120
+corner_detail = 20
+
+[node name="Main" type="Node2D"]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="World"]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_wkp8b")
+offset = Vector2(2560, 1440)
+script = ExtResource("2_20pc6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="World/Background"]
+texture_filter = 1
+position = Vector2(2560, -1440)
+texture = ExtResource("1_wkp8b")
+
+[node name="Ship" type="RigidBody2D" parent="World"]
+position = Vector2(1280, 720)
+gravity_scale = 0.0
+script = ExtResource("1_fos0i")
+Bullet = ExtResource("2_cm0pq")
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Ship"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("3_fos0i")
+
+[node name="Marker2D" type="Marker2D" parent="World/Ship"]
+position = Vector2(0, -28)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ship"]
+shape = SubResource("CircleShape2D_wkp8b")
+
+[node name="Timer" type="Timer" parent="World/Ship"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="World/Ship" groups=["Player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ship/Area2D"]
+shape = SubResource("CircleShape2D_20pc6")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="World/Ship"]
+texture_filter = 1
+offset_left = -32.0
+offset_top = 35.0
+offset_right = -16.0
+offset_bottom = 39.0
+scale = Vector2(3.99977, 2.14092)
+value = 100.0
+texture_under = ExtResource("4_wkp8b")
+texture_progress = ExtResource("4_03owx")
+
+[node name="Camera2D" type="Camera2D" parent="World"]
+position = Vector2(1280, 720)
+
+[node name="LevelManager" type="Node2D" parent="World"]
+script = ExtResource("8_c6i3y")
+
+[node name="PlanetGenerator" type="Node2D" parent="World/LevelManager"]
+script = ExtResource("11_c2ibq")
+
+[node name="Round Time" type="Timer" parent="World/LevelManager"]
+wait_time = 3.0
+autostart = true
+
+[node name="AstroidSpawner" type="Node2D" parent="World/LevelManager"]
+scale = Vector2(1.00222, 1)
+script = ExtResource("4_cm0pq")
+Astroid = ExtResource("5_fos0i")
+
+[node name="Timer" type="Timer" parent="World/LevelManager/AstroidSpawner"]
+wait_time = 2.0
+autostart = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 2075.0
+offset_bottom = 1167.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.23363, 1.23363)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("6_3dxm6")
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+layout_mode = 1
+offset_right = 106.0
+offset_bottom = 114.0
+columns = 2
+
+[node name="Money" type="TextureRect" parent="Control/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("12_5vvyt")
+
+[node name="Scrap" type="RichTextLabel" parent="Control/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("6_03owx")
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "0"
+
+[node name="PlayerIcon" type="TextureRect" parent="Control/GridContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_fos0i")
+
+[node name="Lives" type="RichTextLabel" parent="Control/GridContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 55)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("6_03owx")
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "0"
+
+[node name="Time" type="RichTextLabel" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -357.0
+offset_bottom = 73.0
+grow_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("6_03owx")
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "00:00:00"
+horizontal_alignment = 2
+
+[node name="Diff" type="RichTextLabel" parent="Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -178.503
+offset_right = 178.503
+offset_bottom = 73.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("6_03owx")
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "Diff"
+horizontal_alignment = 1
+
+[node name="Planet Board" type="MarginContainer" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 220
+theme_override_constants/margin_right = 350
+theme_override_constants/margin_bottom = 220
+
+[node name="Panel" type="Panel" parent="Control/Planet Board"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1p5hy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Planet Board/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -656.5
+offset_top = -328.0
+offset_right = 656.5
+offset_bottom = 328.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Planet Board/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+
+[node name="ColorRect" type="ColorRect" parent="Control/Planet Board/Panel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.28363, 0.290373, 0.288718, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/Planet Board/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="Control/Planet Board/Panel/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.28363, 0.290373, 0.288718, 1)
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/Planet Board/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="Control/Planet Board/Panel/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.28363, 0.290373, 0.288718, 1)
+
+[connection signal="area_entered" from="World/Ship/Area2D" to="World/Ship" method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="World/LevelManager/Round Time" to="World/LevelManager" method="_on_round_time_timeout"]
+[connection signal="timeout" from="World/LevelManager/AstroidSpawner/Timer" to="World/LevelManager/AstroidSpawner" method="_on_timer_timeout"]

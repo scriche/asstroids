@@ -11,5 +11,5 @@ func _on_timer_timeout() -> void:
 
 func _on_area_entered(area:Area2D):
 	if area.is_in_group(("Astroids")):
-		area.call_deferred("break_apart")
+		area.call_deferred("damage", Stats.getstat("bullet_damage"))
 		queue_free()

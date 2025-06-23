@@ -7,6 +7,20 @@ var _stats := {
     "bullet_speed": _make_stat(1000),
 	"size": _make_stat(1),
 	"armor": _make_stat(0),
+
+	"shield": _make_stat(0),
+	"shield_recharge": _make_stat(0.5),
+	"dodge_chance": _make_stat(0),
+	"ability_cooldown": _make_stat(0),
+	"bullet_piercing": _make_stat(0),
+	"bullet_size": _make_stat(1),
+	"bullet_damage": _make_stat(10),
+	"bullet_crit_percent": _make_stat(0),
+	"bullet_crit_multi": _make_stat(1.5),
+	"bullet_potency": _make_stat(1),
+	"bullet_power": _make_stat(1),
+	"fire_rate": _make_stat(1),
+	"bullet_count": _make_stat(1),
 }
 
 func _make_stat(base: float) -> Dictionary:
