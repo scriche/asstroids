@@ -140,43 +140,53 @@ func getModifiers(positive_count: int, negative_count: int) -> Array:
 			break
 
 	# Now select negatives to balance towards 0
-	var negatives_needed = randi_range(1, negative_count)
-	for i in negatives_needed:
-		var best_mod = null
-		var best_diff = INF
-		for mod in weighted_negatives:
-			if mod["name"] in used_names:
-				continue
-			if mod["value"] == 0:
-				continue
-			# Randomly select a multiplier between 1.0 and 3 * Global.diff
-			var multiplier = randf_range(1.0, 3 * Global.diff)
-			var impact = mod["value"] * multiplier
-			var diff = abs((total_impact + impact))
-			if diff < best_diff:
-				best_diff = diff
-				best_mod = {
-					"mod": mod,
-					"multiplier": multiplier,
-					"impact": impact
-				}
-			if best_diff <= tolerance:
-				break
-		if best_mod:
-			used_names.append(best_mod["mod"]["name"])
+	# Try to bring total_impact back toward zero by adding negative modifiers
+
+	while true:
+		# Pick a random unused negative modifier
+		var mod = weighted_negatives.pick_random()
+		if mod["name"] in used_names:
+			continue
+		if mod["value"] == 0:
+			continue
+
+		# Pick a random multiplier between 1.0 and 3.0 * Global.diff
+		var multiplier = randf_range(1.0, 3.0 * Global.diff)
+		var impact = mod["value"] * multiplier
+		var projected_impact = total_impact + impact
+
+		# If it's within tolerance, accept it
+		if abs(projected_impact) <= tolerance:
+			used_names.append(mod["name"])
 			selected.append({
-				"name": best_mod["mod"]["name"],
-				"multiplier": best_mod["multiplier"],
-				"value": best_mod["mod"]["value"],
-				"impact": best_mod["impact"],
-				"rarity": best_mod["mod"]["rarity"],
+				"name": mod["name"],
+				"multiplier": multiplier,
+				"value": mod["value"],
+				"impact": impact,
+				"rarity": mod["rarity"],
 				"type": "negative"
 			})
-			total_impact += best_mod["impact"]
-		else:
+			total_impact += impact
 			break
 
-		if abs(total_impact) <= tolerance:
-			break
+		# If it's over, scale the multiplier down to stay within tolerance
+		var max_allowed_impact = tolerance - abs(total_impact)
+		if abs(mod["value"]) > 0:
+			var max_multiplier = max_allowed_impact / abs(mod["value"])
+			if max_multiplier >= 1.0:
+				multiplier = clamp(max_multiplier, 1.0, 3.0 * Global.diff)
+				impact = mod["value"] * multiplier
+				used_names.append(mod["name"])
+				selected.append({
+					"name": mod["name"],
+					"multiplier": multiplier,
+					"value": mod["value"],
+					"impact": impact,
+					"rarity": mod["rarity"],
+					"type": "negative"
+				})
+				total_impact += impact
+				break
+		# Otherwise, try another modifier
 
 	return selected

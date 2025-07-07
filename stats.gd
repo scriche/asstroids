@@ -4,6 +4,7 @@ var _stats := {
 	"max_health": _make_stat(100),
     "acceleration": _make_stat(30),
     "max_speed": _make_stat(8),
+	"fire_rate": _make_stat(1),
     "bullet_speed": _make_stat(1000),
 	"size": _make_stat(1),
 	"armor": _make_stat(0),
@@ -19,8 +20,8 @@ var _stats := {
 	"bullet_crit_multi": _make_stat(1.5),
 	"bullet_potency": _make_stat(1),
 	"bullet_power": _make_stat(1),
-	"fire_rate": _make_stat(1),
 	"bullet_count": _make_stat(1),
+	"riccochet_count": _make_stat(0),
 }
 
 func _make_stat(base: float) -> Dictionary:

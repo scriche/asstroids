@@ -15,6 +15,8 @@ extends Node2D
 # overlay shop with stats mods and health
 var planetgenerator : Node2D
 
+signal planet_selection(planetA, planetB, planetC)
+
 func _ready():
 
     planetgenerator = $PlanetGenerator
@@ -29,12 +31,11 @@ func DisplayPlanets():
     var planetA = planetgenerator.genPlanet(randi_range(0,1), 1)
     var planetB = planetgenerator.genPlanet(2, 3)
     var planetC = planetgenerator.genPlanet(3, 5)
-    #print("Planet A: ", planetA)
-    #print("Planet B: ", planetB)
-    #print("Planet C: ", planetC)
+    emit_signal("planet_selection", planetA, planetB, planetC)
 
 func _on_round_time_timeout():
     # Pause the game
-    #get_tree().paused = true
+    get_tree().paused = true
     # Show the planet selection UI
     DisplayPlanets()
+    
