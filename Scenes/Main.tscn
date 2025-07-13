@@ -33,6 +33,7 @@ corner_detail = 20
 [node name="World" type="Node2D" parent="."]
 
 [node name="Background" type="Sprite2D" parent="World"]
+process_mode = 3
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_wkp8b")
@@ -91,7 +92,7 @@ script = ExtResource("8_c6i3y")
 script = ExtResource("11_c2ibq")
 
 [node name="Round Time" type="Timer" parent="World/LevelManager"]
-wait_time = 3.0
+wait_time = 300.0
 autostart = true
 
 [node name="AstroidSpawner" type="Node2D" parent="World/LevelManager"]
@@ -208,6 +209,7 @@ text = "Diff"
 horizontal_alignment = 1
 
 [node name="Planet Board" type="MarginContainer" parent="Control"]
+process_mode = 2
 visible = false
 layout_mode = 1
 anchors_preset = 15

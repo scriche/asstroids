@@ -1,6 +1,7 @@
 extends Node2D
 
 var total_impact : float = 0.0
+var tries : int = 50 # Number of attempts to find a suitable negative modifier
 var images : Array = []
 var names : Array = []
 var modifier_data : Dictionary = {
@@ -138,11 +139,10 @@ func getModifiers(positive_count: int, negative_count: int) -> Array:
 			total_impact += best_mod["impact"]
 		else:
 			break
-
 	# Now select negatives to balance towards 0
 	# Try to bring total_impact back toward zero by adding negative modifiers
 
-	while true:
+	for i in range(tries):
 		# Pick a random unused negative modifier
 		var mod = weighted_negatives.pick_random()
 		if mod["name"] in used_names:
@@ -150,8 +150,8 @@ func getModifiers(positive_count: int, negative_count: int) -> Array:
 		if mod["value"] == 0:
 			continue
 
-		# Pick a random multiplier between 1.0 and 3.0 * Global.diff
-		var multiplier = randf_range(1.0, 3.0 * Global.diff)
+		# Pick a random multiplier between 0.5 and 3.0 * Global.diff
+		var multiplier = randf_range(0.5, 3.0 * Global.diff)
 		var impact = mod["value"] * multiplier
 		var projected_impact = total_impact + impact
 
@@ -167,7 +167,7 @@ func getModifiers(positive_count: int, negative_count: int) -> Array:
 				"type": "negative"
 			})
 			total_impact += impact
-			break
+			print("Selected negative modifier:", mod["name"], "with impact:", impact)
 
 		# If it's over, scale the multiplier down to stay within tolerance
 		var max_allowed_impact = tolerance - abs(total_impact)

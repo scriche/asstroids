@@ -27,11 +27,12 @@ func break_apart() -> void:
 	var c = Coin.instantiate()
 	c.position = position
 	get_parent().add_child(c)
-	if scale > Vector2(0.6, 0.6):
+	if scale > Vector2(0.8, 0.8):
+		get_parent().duplicate()
 		var a = self.duplicate()
 		var b = self.duplicate()
-		a.scale = scale * 0.7 / Global.diff
-		b.scale = scale * 0.7 / Global.diff
+		a.scale = scale * 0.7
+		b.scale = scale * 0.7
 		a.rotation = rotation + PI/4
 		b.rotation = rotation - PI/4
 		get_parent().add_child(a)
